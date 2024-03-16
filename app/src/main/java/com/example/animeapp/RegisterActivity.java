@@ -107,16 +107,16 @@ public class RegisterActivity extends AppCompatActivity {
                 conPassword=edtConPass.getText().toString().trim();
                 switch (validate(email,password,conPassword)){
                     case ERR_BLANK:
-                        txtInformRg.setText("Not be empty!");
+                        txtInformRg.setText("Không đươc bỏ trống!");
                         break;
                     case ERR_EMAIL_FORMAT:
-                        txtInformRg.setText("Email invalidate!");
+                        txtInformRg.setText("Email không đúng định dạng!");
                         break;
                     case ERR_SHORTPASS:
-                        txtInformRg.setText("Password must be at least 6 characters!");
+                        txtInformRg.setText("Mật khẩu phải tối thiểu 6 ký tự!");
                         break;
                     case ERR_PASSWORD_MATCH:
-                        txtInformRg.setText("Password and confirm password is not match!");
+                        txtInformRg.setText("Mật khẩu và mật khẩu xác thực không khớp!");
                         break;
                     case VALIDATE_OK:
                         prbarRg.setVisibility(View.VISIBLE);
@@ -128,10 +128,10 @@ public class RegisterActivity extends AppCompatActivity {
                                             prbarRg.setVisibility(View.GONE);
                                             // Sign in success, update UI with the signed-in user's information
                                             txtInformRg.setTextColor(getResources().getColor(R.color.success));
-                                            txtInformRg.setText("Register successfully!");
+                                            txtInformRg.setText("Đăng ký thành công!");
                                         } else {
                                             // If sign in fails, display a message to the user.
-                                            txtInformRg.setText("Register failed!");
+                                            txtInformRg.setText("Đăng ký thất bại!");
                                         }
                                     }
                                 });

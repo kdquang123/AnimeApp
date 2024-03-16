@@ -97,13 +97,13 @@ public class LoginActivity extends AppCompatActivity {
                 password=edtPass.getText().toString().trim();
                 switch (validate(email,password)){
                     case ERR_BLANK:
-                        txtInformLogin.setText("Not be empty!");
+                        txtInformLogin.setText("Không được bỏ trống!");
                         break;
                     case ERR_EMAIL_FORMAT:
-                        txtInformLogin.setText("Email invalidate!");
+                        txtInformLogin.setText("Email không đúng định dạng!");
                         break;
                     case ERR_SHORTPASS:
-                        txtInformLogin.setText("Password must be at least 6 characters!");
+                        txtInformLogin.setText("Mật khẩu phải tối thiểu 6 ký tự!");
                         break;
                     case VALIDATE_OK:
                         prgBarLg.setVisibility(View.VISIBLE);
@@ -118,7 +118,7 @@ public class LoginActivity extends AppCompatActivity {
                                             startActivity(intent);
                                         } else {
                                             // If sign in fails, display a message to the user.
-                                            txtInformLogin.setText("Email or password is not correct!");
+                                            txtInformLogin.setText("Email hoặc mật khẩu chưa chính xác!");
                                         }
                                     }
                                 });

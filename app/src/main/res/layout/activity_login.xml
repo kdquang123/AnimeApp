@@ -12,14 +12,14 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:text="Sign in"
+        android:text="Đăng nhập"
         android:textSize="40dp"
         android:textStyle="bold"
         />
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Please login to your account"
+        android:text="Nhập tài khoản của bạn"
         android:textSize="18dp"
         android:layout_gravity="center"
         android:layout_marginTop="5dp"
@@ -33,7 +33,7 @@
         android:layout_marginTop="40dp"
         android:layout_marginEnd="20dp"
         android:background="@drawable/round_back_dark_blue_15"
-        android:hint="Email"
+        android:hint="Email của bạn"
         android:inputType="text"
         android:maxLines="1"
         android:paddingStart="20dp"
@@ -51,7 +51,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="@drawable/round_back_dark_blue_15"
-            android:hint="Password"
+            android:hint="Mật khẩu của bạn"
             android:inputType="textPassword"
             android:maxLines="1"
             android:paddingStart="20dp"
@@ -76,7 +76,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="end"
         android:textColor="@color/primary"
-        android:text="Forgot password ?"/>
+        android:text="Quên mật khẩu ?"/>
     <ProgressBar
         android:id="@+id/progressBarLg"
         android:layout_width="wrap_content"
@@ -100,7 +100,7 @@
         android:layout_marginStart="20dp"
         android:layout_marginTop="30dp"
         android:layout_marginEnd="20dp"
-        android:text="Sign in"
+        android:text="Đăng nhập"
         android:background="@drawable/round_back_primary_15"
         android:textColor="#fff"
         />
@@ -113,13 +113,13 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Don't have account ? "
+            android:text="Bạn chưa có tài khoản ? "
             android:textSize="15dp"/>
         <TextView
             android:id="@+id/btnDirectSignUp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Sign up"
+            android:text="Đăng ký"
             android:textSize="15dp"
             android:textStyle="bold"
             android:textColor="@color/primary"
