@@ -1,4 +1,4 @@
-package com.example.animeapp;
+package com.example.animeapp.Model;
 
 import java.util.Date;
 
@@ -7,18 +7,18 @@ public class Comment {
     private String Content;
     private Date CreateAt;
     private String UserName;
-    private int SatingValue;
+    private int RatingValue;
     private int IdStory;
 
     public Comment() {
     }
 
-    public Comment(int id, String content, Date createAt, String userName, int satingValue, int idStory) {
+    public Comment(int id, String content, Date createAt, String userName, int ratingValue, int idStory) {
         Id = id;
         Content = content;
         CreateAt = createAt;
         UserName = userName;
-        SatingValue = satingValue;
+        RatingValue = ratingValue;
         IdStory = idStory;
     }
 
@@ -54,12 +54,12 @@ public class Comment {
         UserName = userName;
     }
 
-    public int getSatingValue() {
-        return SatingValue;
+    public int getRatingValue() {
+        return RatingValue;
     }
 
-    public void setSatingValue(int satingValue) {
-        SatingValue = satingValue;
+    public void setRatingValue(int ratingValue) {
+        RatingValue = ratingValue;
     }
 
     public int getIdStory() {

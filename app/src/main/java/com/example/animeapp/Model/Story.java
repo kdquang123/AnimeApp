@@ -1,4 +1,4 @@
-package com.example.animeapp;
+package com.example.animeapp.Model;
 
 public class Story {
     private int Id;
