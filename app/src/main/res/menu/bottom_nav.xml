@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/mnu_home"
+        android:textColor="#333"
+        android:title="Trang chủ"
+        android:icon="@drawable/home"
+        app:showAsAction="always"/>
+    <item
+        android:id="@+id/mnu_search"
+        android:textColor="#333"
+        android:title="Tìm kiếm"
+        android:icon="@drawable/search"
+        app:showAsAction="always" />
+    <item
+        android:id="@+id/mnu_book"
+        android:textColor="#333"
+        android:title="Tủ sách"
+        android:icon="@drawable/book"
+        app:showAsAction="always"/>
+    <item
+        android:id="@+id/mnu_category"
+        android:textColor="#333"
+        android:title="Thể loại"
+        android:icon="@drawable/category"
+        app:showAsAction="always"/>
+</menu>

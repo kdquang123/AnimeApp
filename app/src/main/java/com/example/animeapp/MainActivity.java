@@ -1,18 +1,29 @@
 package com.example.animeapp;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 
+import com.example.animeapp.Fragments.BookcaseFragment;
+import com.example.animeapp.Fragments.HomeFragment;
+import com.example.animeapp.Fragments.SearchFragment;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.android.material.navigation.NavigationBarView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
 public class MainActivity extends AppCompatActivity {
     Button btnSignOut;
     FirebaseAuth mAuth;
+    BottomNavigationView bottomNavigationView;
 
     @Override
     protected void onStart() {
@@ -29,14 +40,38 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        btnSignOut=findViewById(R.id.btnSignOut);
-        btnSignOut.setOnClickListener(new View.OnClickListener() {
+        bottomNavigationView=findViewById(R.id.bottomNavigationView);
+//        btnSignOut=findViewById(R.id.btnSignOut);
+//        btnSignOut.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                mAuth.signOut();
+//                Intent intent=new Intent(MainActivity.this,LoginActivity.class);
+//                startActivity(intent);
+//            }
+//        });
+        bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
-            public void onClick(View v) {
-                mAuth.signOut();
-                Intent intent=new Intent(MainActivity.this,LoginActivity.class);
-                startActivity(intent);
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                if(item.getItemId()==R.id.mnu_home){
+                    loadFragment(new HomeFragment());
+                }else if(item.getItemId()==R.id.mnu_book){
+                    loadFragment(new BookcaseFragment());
+                }else if(item.getItemId()==R.id.mnu_search){
+                    loadFragment(new SearchFragment());
+                }else{
+
+                }
+                return true;
             }
         });
+        loadFragment(new HomeFragment());
+    }
+
+    private void loadFragment(Fragment fragment){
+        FragmentManager fragmentManager=getSupportFragmentManager();
+        FragmentTransaction fragmentTransaction=fragmentManager.beginTransaction();
+        fragmentTransaction.replace(R.id.frameLayout,fragment);
+        fragmentTransaction.commit();
     }
 }
