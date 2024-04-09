@@ -1,29 +1,37 @@
 package com.example.animeapp;
 
+import android.content.Intent;
+import android.os.Bundle;
+import android.view.MenuItem;
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.Button;
+import android.widget.GridView;
+
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
-import android.content.Intent;
-import android.os.Bundle;
-import android.view.MenuItem;
-import android.view.View;
-import android.widget.Button;
-
 import com.example.animeapp.Fragments.BookcaseFragment;
 import com.example.animeapp.Fragments.HomeFragment;
 import com.example.animeapp.Fragments.SearchFragment;
+import com.example.animeapp.Model.Story;
+import com.example.animeapp.adapter.StoryAdapter;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
-import com.google.android.material.navigation.NavigationBarView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+
+import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
     Button btnSignOut;
     FirebaseAuth mAuth;
     BottomNavigationView bottomNavigationView;
+    GridView gdvDSStory;
+    StoryAdapter adapter;
+    ArrayList<Story> storyArrayList;
 
     @Override
     protected void onStart() {
@@ -66,6 +74,11 @@ public class MainActivity extends AppCompatActivity {
             }
         });
         loadFragment(new HomeFragment());
+
+        init();
+        gdvDSStory = findViewById(R.id.gdvDSTruyen);
+        gdvDSStory.setAdapter(adapter);
+        setClick();
     }
 
     private void loadFragment(Fragment fragment){
@@ -73,5 +86,32 @@ public class MainActivity extends AppCompatActivity {
         FragmentTransaction fragmentTransaction=fragmentManager.beginTransaction();
         fragmentTransaction.replace(R.id.frameLayout,fragment);
         fragmentTransaction.commit();
+    }
+
+    private void init() {
+        storyArrayList = new ArrayList<>();
+
+        //Tôi tạo dữ liệu ảo để test
+        storyArrayList.add(new Story(1, "Lmao", "https://contenthub-static.grammarly.com/blog/wp-content/uploads/2016/11/IMAO.jpg", "LTA", "Lmao", 1));
+        storyArrayList.add(new Story(2, "Lmao", "https://contenthub-static.grammarly.com/blog/wp-content/uploads/2016/11/IMAO.jpg", "LTA", "Lmao", 1));
+        storyArrayList.add(new Story(3, "Lmao", "https://contenthub-static.grammarly.com/blog/wp-content/uploads/2016/11/IMAO.jpg", "LTA", "Lmao", 1));
+        adapter = new StoryAdapter(this, 0, storyArrayList);
+    }
+
+    private void setClick() {
+        gdvDSStory.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                Story story = storyArrayList.get(i);
+                Bundle b = new Bundle();
+                b.putString("Name", story.getName());
+                b.putString("Author", story.getAuthor());
+                b.putString("Summary", story.getSummary());
+                b.putString("Image", story.getCoverImage());
+                Intent intent = new Intent(MainActivity.this, ChapActivity.class);
+                intent.putExtras(b);
+                startActivity(intent);
+            }
+        });
     }
 }
