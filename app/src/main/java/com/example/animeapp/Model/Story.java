@@ -49,6 +49,7 @@ public class Story {
     }
 
     public void setAuthor(String author) {
+
         Author = author;
     }
 
