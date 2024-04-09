@@ -7,18 +7,16 @@ public class Comment {
     private String Content;
     private Date CreateAt;
     private String UserName;
-    private int RatingValue;
     private int IdStory;
 
     public Comment() {
     }
 
-    public Comment(int id, String content, Date createAt, String userName, int ratingValue, int idStory) {
+    public Comment(int id, String content, Date createAt, String userName, int idStory) {
         Id = id;
         Content = content;
         CreateAt = createAt;
         UserName = userName;
-        RatingValue = ratingValue;
         IdStory = idStory;
     }
 
@@ -52,14 +50,6 @@ public class Comment {
 
     public void setUserName(String userName) {
         UserName = userName;
-    }
-
-    public int getRatingValue() {
-        return RatingValue;
-    }
-
-    public void setRatingValue(int ratingValue) {
-        RatingValue = ratingValue;
     }
 
     public int getIdStory() {

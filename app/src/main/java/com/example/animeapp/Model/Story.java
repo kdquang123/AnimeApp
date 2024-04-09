@@ -6,18 +6,20 @@ public class Story {
     private String CoverImage;
     private String Author;
     private String Summary;
-    private int IdCategory;
+    private String Category;
+    private int numOfChapter;
 
     public Story() {
     }
 
-    public Story(int id, String name, String coverImage, String author, String summary, int idCategory) {
+    public Story(int id, String name, String coverImage, String author, String summary, String category, int numOfChapter) {
         Id = id;
         Name = name;
         CoverImage = coverImage;
         Author = author;
         Summary = summary;
-        IdCategory = idCategory;
+        Category = category;
+        this.numOfChapter = numOfChapter;
     }
 
     public int getId() {
@@ -59,12 +61,19 @@ public class Story {
     public void setSummary(String summary) {
         Summary = summary;
     }
-
-    public int getIdCategory() {
-        return IdCategory;
+    public String getCategory() {
+        return Category;
     }
 
-    public void setIdCategory(int idCategory) {
-        IdCategory = idCategory;
+    public void setCategory(String category) {
+        Category = category;
+    }
+
+    public int getNumOfChapter() {
+        return numOfChapter;
+    }
+
+    public void setNumOfChapter(int numOfChapter) {
+        this.numOfChapter = numOfChapter;
     }
 }
