@@ -1,50 +1,50 @@
 package com.example.animeapp.Model;
 
 public class Page {
-    private int Id;
-    private String Image;
-    private int PageNumber;
-    private int IdChap;
+    private int id;
+    private String image;
+    private int pageNumber;
+    private int idChap;
 
     public Page() {
     }
 
     public Page(int id, String image, int pageNumber, int idChap) {
-        Id = id;
-        Image = image;
-        PageNumber = pageNumber;
-        IdChap = idChap;
+        this.id = id;
+        this.image = image;
+        this.pageNumber = pageNumber;
+        this.idChap = idChap;
     }
 
     public int getId() {
-        return Id;
+        return id;
     }
 
     public void setId(int id) {
-        Id = id;
+        this.id = id;
     }
 
     public String getImage() {
-        return Image;
+        return image;
     }
 
     public void setImage(String image) {
-        Image = image;
+        this.image = image;
     }
 
     public int getPageNumber() {
-        return PageNumber;
+        return pageNumber;
     }
 
     public void setPageNumber(int pageNumber) {
-        PageNumber = pageNumber;
+        this.pageNumber = pageNumber;
     }
 
     public int getIdChap() {
-        return IdChap;
+        return idChap;
     }
 
     public void setIdChap(int idChap) {
-        IdChap = idChap;
+        this.idChap = idChap;
     }
 }

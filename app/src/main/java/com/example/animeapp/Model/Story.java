@@ -1,72 +1,73 @@
 package com.example.animeapp.Model;
 
 public class Story {
-    private int Id;
-    private String Name;
-    private String CoverImage;
-    private String Author;
-    private String Summary;
-    private String Category;
+    private int id;
+    private String name;
+    private String coverImage;
+    private String author;
+    private String summary;
+    private String category;
     private int numOfChapter;
 
     public Story() {
     }
 
     public Story(int id, String name, String coverImage, String author, String summary, String category, int numOfChapter) {
-        Id = id;
-        Name = name;
-        CoverImage = coverImage;
-        Author = author;
-        Summary = summary;
-        Category = category;
+        this.id = id;
+        this.name = name;
+        this.coverImage = coverImage;
+        this.author = author;
+        this.summary = summary;
+        this.category = category;
         this.numOfChapter = numOfChapter;
     }
 
     public int getId() {
-        return Id;
+        return id;
     }
 
     public void setId(int id) {
-        Id = id;
+        this.id = id;
     }
 
     public String getName() {
-        return Name;
+        return name;
     }
 
     public void setName(String name) {
-        Name = name;
+        this.name = name;
     }
 
     public String getCoverImage() {
-        return CoverImage;
+        return coverImage;
     }
 
     public void setCoverImage(String coverImage) {
-        CoverImage = coverImage;
+        this.coverImage = coverImage;
     }
 
     public String getAuthor() {
-        return Author;
+        return author;
     }
 
     public void setAuthor(String author) {
-        Author = author;
+        this.author = author;
     }
 
     public String getSummary() {
-        return Summary;
+        return summary;
     }
 
     public void setSummary(String summary) {
-        Summary = summary;
+        this.summary = summary;
     }
+
     public String getCategory() {
-        return Category;
+        return category;
     }
 
     public void setCategory(String category) {
-        Category = category;
+        this.category = category;
     }
 
     public int getNumOfChapter() {
