@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -23,6 +24,7 @@ import java.util.Date;
 public class ChapActivity extends AppCompatActivity {
     TextView txtChapterName, txtAuthor, txtSummary;
     ImageView CoverImage;
+    Button btnTheoDoi;
     Story story;
     ListView lsvDSChap;
     ArrayList<Chapter> arrChap;
@@ -36,6 +38,7 @@ public class ChapActivity extends AppCompatActivity {
         Bundle b = getIntent().getExtras();
         init();
         CoverImage = findViewById(R.id.CoverImage);
+        btnTheoDoi = findViewById(R.id.btnTheoDoi);
         txtChapterName = findViewById(R.id.txtChapterName);
         txtAuthor = findViewById(R.id.txtAuthor);
         txtSummary = findViewById(R.id.txtSummary);
@@ -47,6 +50,7 @@ public class ChapActivity extends AppCompatActivity {
             String img = b.getString("Image");
             txtChapterName.setText(name);
             txtAuthor.setText(author);
+            //Cái thể loại chưa sửa id nên xin phép ko động tới
             txtSummary.setText(summary);
             Glide.with(this).load(img).into(CoverImage);
             lsvDSChap.setAdapter(chapterAdapter);
