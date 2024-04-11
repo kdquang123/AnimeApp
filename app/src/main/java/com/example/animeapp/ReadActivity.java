@@ -36,11 +36,11 @@ public class ReadActivity extends AppCompatActivity {
     }
 
     public void left(View view) {
-        docTheoTrang(-1);
+        //Chuyển sang chap trước
     }
 
     public void right(View view) {
-        docTheoTrang(1);
+        //Chuyển sang chap sau
     }
 
     private void init() {

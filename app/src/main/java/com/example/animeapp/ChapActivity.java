@@ -3,17 +3,16 @@ package com.example.animeapp;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ImageView;
-import android.widget.ListView;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.example.animeapp.Model.Chapter;
-import com.example.animeapp.Model.Story;
 import com.example.animeapp.adapter.ChapterAdapter;
 
 import java.text.ParseException;
@@ -25,8 +24,7 @@ public class ChapActivity extends AppCompatActivity {
     TextView txtChapterName, txtAuthor, txtSummary;
     ImageView CoverImage;
     Button btnTheoDoi;
-    Story story;
-    ListView lsvDSChap;
+    RecyclerView recyclerViewChap;
     ArrayList<Chapter> arrChap;
     ChapterAdapter chapterAdapter;
     SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
@@ -42,7 +40,8 @@ public class ChapActivity extends AppCompatActivity {
         txtChapterName = findViewById(R.id.txtChapterName);
         txtAuthor = findViewById(R.id.txtAuthor);
         txtSummary = findViewById(R.id.txtSummary);
-        lsvDSChap = findViewById(R.id.lsvDanhSachChap);
+        recyclerViewChap = findViewById(R.id.recyclerViewChap);
+        //recyclerViewChap.setNestedScrollingEnabled(false);
         if (b != null) {
             String name = b.getString("Name");
             String author = b.getString("Author");
@@ -53,7 +52,7 @@ public class ChapActivity extends AppCompatActivity {
             //Cái thể loại chưa sửa id nên xin phép ko động tới
             txtSummary.setText(summary);
             Glide.with(this).load(img).into(CoverImage);
-            lsvDSChap.setAdapter(chapterAdapter);
+            recyclerViewChap.setAdapter(chapterAdapter);
         }
         setUp();
         setClick();
@@ -70,14 +69,18 @@ public class ChapActivity extends AppCompatActivity {
                 e.printStackTrace();
             }
         }
-        chapterAdapter = new ChapterAdapter(this, 0, arrChap);
+        chapterAdapter = new ChapterAdapter(this, arrChap);
     }
 
-    private void setUp() { }
+    private void setUp() {
+        LinearLayoutManager layoutManager = new LinearLayoutManager(this);
+        recyclerViewChap.setLayoutManager(layoutManager);
+    }
+
     private void setClick() {
-        lsvDSChap.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        chapterAdapter.setOnItemClickListener(new ChapterAdapter.OnItemClickListener() {
             @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+            public void onItemClick(View view, int position) {
                 startActivity(new Intent(ChapActivity.this, ReadActivity.class));
             }
         });

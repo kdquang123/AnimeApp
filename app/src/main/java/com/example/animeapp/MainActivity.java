@@ -93,7 +93,7 @@ public class MainActivity extends AppCompatActivity {
 
         //Tôi tạo dữ liệu ảo để test
         storyArrayList.add(new Story(1, "Lmao", "https://contenthub-static.grammarly.com/blog/wp-content/uploads/2016/11/IMAO.jpg", "LTA", "Lmao", 1));
-        storyArrayList.add(new Story(2, "Lmao", "https://contenthub-static.grammarly.com/blog/wp-content/uploads/2016/11/IMAO.jpg", "LTA", "Lmao", 1));
+        storyArrayList.add(new Story(2, "Lmao", "https://contenthub-static.grammarly.com/blog/wp-content/uploads/2016/11/IMAO.jpg", "LTA", "Lmao\nLmao\nLmao\nLmao\nLmao\nLmao\nLmao\nLmao\nLmao\n", 1));
         storyArrayList.add(new Story(3, "Lmao", "https://contenthub-static.grammarly.com/blog/wp-content/uploads/2016/11/IMAO.jpg", "LTA", "Lmao", 1));
         adapter = new StoryAdapter(this, 0, storyArrayList);
     }
