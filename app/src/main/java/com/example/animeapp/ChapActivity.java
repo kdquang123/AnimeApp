@@ -85,4 +85,8 @@ public class ChapActivity extends AppCompatActivity {
             }
         });
     }
+
+    public void comment(View view) {
+
+    }
 }
