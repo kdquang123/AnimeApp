@@ -9,6 +9,6 @@ import retrofit2.http.GET;
 import retrofit2.http.Path;
 
 public interface ChapterService {
-    @GET("Chapter/{idStory}")
-    Call<ArrayList<Chapter>>getChapterByIdStory(@Path("idStory")int idStory);
+    @GET("Chapter/{id}")
+    Call<ArrayList<Chapter>>getChapterByIdStory(@Path("id")int id);
 }

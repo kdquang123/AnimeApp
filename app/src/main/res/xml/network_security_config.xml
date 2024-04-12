@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<network-security-config>
+    <base-config cleartextTrafficPermitted="false">
+        <!-- Cấu hình cho phép kết nối HTTPS -->
+        <trust-anchors>
+            <certificates src="system" />
+        </trust-anchors>
+    </base-config>
+    <domain-config cleartextTrafficPermitted="false">
+        <domain includeSubdomains="true">img.nettruyenfull.com</domain>
+    </domain-config>
+    <domain-config cleartextTrafficPermitted="true">
+        <!-- Chỉ cho phép kết nối đến máy chủ cụ thể -->
+        <domain includeSubdomains="true">10.0.2.2</domain>
+        <port>5070</port>
+    </domain-config>
+</network-security-config>

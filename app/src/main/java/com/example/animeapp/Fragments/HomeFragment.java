@@ -26,6 +26,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -92,6 +93,11 @@ public class HomeFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        retrofit = new Retrofit.Builder()
+                .baseUrl("http://10.0.2.2:5070/api/")
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+        storyService = retrofit.create(StoryService.class);
         View view = inflater.inflate(R.layout.fragment_home, container, false);
         recyclerView= view.findViewById(R.id.rcv_home);
         recyclerView2= view.findViewById(R.id.rcv_home2);
@@ -160,7 +166,7 @@ public class HomeFragment extends Fragment {
         runnable = new Runnable() {
             @Override
             public void run() {
-                if (currentSlide == 6) {
+                if (currentSlide == 2) {
                     currentSlide = 0;
                 } else {
                     currentSlide = firstVisibleItemPosition;
@@ -191,7 +197,7 @@ public class HomeFragment extends Fragment {
 //        list.add(new Story(7,"name","CoverImage","Author","Summary","ntr",7));
 //        list.add(new Story(8,"name","CoverImage","Author","Summary","ntr",8));
 //        list.add(new Story(9,"name","CoverImage","Author","Summary","ntr",9));
-        Call<ArrayList<Story>> callStory = storyService.getStoryByPage(1);
+        Call<ArrayList<Story>> callStory = storyService.getStory();
         callStory.enqueue(new Callback<ArrayList<Story>>() {
             @Override
             public void onResponse(Call<ArrayList<Story>> call, Response<ArrayList<Story>> response) {

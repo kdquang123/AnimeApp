@@ -13,12 +13,21 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.example.animeapp.Adapter.ChapterAdapter;
+import com.example.animeapp.Api.ChapterService;
+import com.example.animeapp.Api.StoryService;
 import com.example.animeapp.Model.Chapter;
+import com.example.animeapp.Model.Story;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
 
 public class ChapActivity extends AppCompatActivity {
     TextView txtChapterName, txtAuthor, txtSummary;
@@ -27,6 +36,9 @@ public class ChapActivity extends AppCompatActivity {
     RecyclerView recyclerViewChap;
     ArrayList<Chapter> arrChap;
     ChapterAdapter chapterAdapter;
+    TextView txtCategory;
+    Retrofit retrofit;
+    ChapterService chapterService;
     SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
 
     @Override
@@ -34,42 +46,73 @@ public class ChapActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_chap);
         Bundle b = getIntent().getExtras();
-        init();
         CoverImage = findViewById(R.id.CoverImage);
         btnTheoDoi = findViewById(R.id.btnTheoDoi);
         txtChapterName = findViewById(R.id.txtChapterName);
         txtAuthor = findViewById(R.id.txtAuthor);
         txtSummary = findViewById(R.id.txtSummary);
         recyclerViewChap = findViewById(R.id.recyclerViewChap);
+        txtCategory=findViewById(R.id.txtCategory);
         //recyclerViewChap.setNestedScrollingEnabled(false);
+
+        retrofit = new Retrofit.Builder()
+                .baseUrl("http://10.0.2.2:5070/api/")
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+        chapterService = retrofit.create(ChapterService.class);
+
         if (b != null) {
+            int id=b.getInt("Id");
             String name = b.getString("Name");
             String author = b.getString("Author");
             String summary = b.getString("Summary");
             String img = b.getString("Image");
+            String category=b.getString("Category");
             txtChapterName.setText(name);
             txtAuthor.setText(author);
             //Cái thể loại chưa sửa id nên xin phép ko động tới
+            txtCategory.setText("Thể loại :"+category);
             txtSummary.setText(summary);
             Glide.with(this).load(img).into(CoverImage);
+            initData(id);
             recyclerViewChap.setAdapter(chapterAdapter);
         }
         setUp();
-        setClick();
+//        setClick();
     }
 
-    private void init() {
+    private void initData(int idStory) {
         //Dữ liệu ảo để tôi test thử giao diện
         arrChap = new ArrayList<>();
-        for (int i = 1; i < 20; i++) {
-            try {
-                Date date = dateFormat.parse("2022-02-22");
-                arrChap.add(new Chapter(i, "Chapter " + i, date, i));
-            } catch (ParseException e) {
-                e.printStackTrace();
+//        for (int i = 1; i < 20; i++) {
+//            try {
+//                Date date = dateFormat.parse("2022-02-22");
+//                arrChap.add(new Chapter(i, "Chapter " + i, date, i));
+//            } catch (ParseException e) {
+//                e.printStackTrace();
+//            }
+//        }
+        Call<ArrayList<Chapter>> callChapter = chapterService.getChapterByIdStory(idStory);
+        callChapter.enqueue(new Callback<ArrayList<Chapter>>() {
+            @Override
+            public void onResponse(Call<ArrayList<Chapter>> call, Response<ArrayList<Chapter>> response) {
+                if (response.isSuccessful()) {
+                    arrChap = response.body();
+                    chapterAdapter = new ChapterAdapter(ChapActivity.this, arrChap);
+                    recyclerViewChap.setAdapter(chapterAdapter);
+//                    txtCategory.setText("Ok");
+                }else{
+//                    txtCategory.setText("Not ok");
+                }
             }
-        }
-        chapterAdapter = new ChapterAdapter(this, arrChap);
+
+            @Override
+            public void onFailure(Call<ArrayList<Chapter>> call, Throwable t) {
+                chapterAdapter=new ChapterAdapter(ChapActivity.this,arrChap);
+
+                txtCategory.setText("Super not ok");
+            }
+        });
     }
 
     private void setUp() {

@@ -5,13 +5,13 @@ import java.util.Date;
 public class Chapter {
     private  int id;
     private String chapterName;
-    private Date createAt;
+    private String createAt;
     private int idStory;
 
     public Chapter() {
     }
 
-    public Chapter(int id, String chapterName, Date createAt, int idStory) {
+    public Chapter(int id, String chapterName, String createAt, int idStory) {
         this.id = id;
         this.chapterName = chapterName;
         this.createAt = createAt;
@@ -34,11 +34,11 @@ public class Chapter {
         this.chapterName = chapterName;
     }
 
-    public Date getCreateAt() {
+    public String getCreateAt() {
         return createAt;
     }
 
-    public void setCreateAt(Date createAt) {
+    public void setCreateAt(String createAt) {
         this.createAt = createAt;
     }
 

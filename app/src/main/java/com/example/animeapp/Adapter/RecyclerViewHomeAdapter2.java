@@ -1,6 +1,8 @@
 package com.example.animeapp.Adapter;
 
 import android.content.Context;
+import android.content.Intent;
+import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,6 +12,8 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
+import com.example.animeapp.ChapActivity;
 import com.example.animeapp.Model.Story;
 import com.example.animeapp.R;
 
@@ -27,11 +31,12 @@ public class RecyclerViewHomeAdapter2 extends RecyclerView.Adapter<RecyclerViewH
         notifyDataSetChanged();
     }
     private List<Story> stories;
+
+
     @NonNull
     @Override
     public StoryViewHolder2 onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view= LayoutInflater.from(parent.getContext()).inflate(R.layout.item_home_2,parent,false);
-
         return new StoryViewHolder2(view);
     }
 
@@ -43,9 +48,27 @@ public class RecyclerViewHomeAdapter2 extends RecyclerView.Adapter<RecyclerViewH
         }
 //        Uri uri = Uri.parse(story.getCoverImage());
 //        holder.imgstory.setImageURI(uri);
-        holder.imgstory.setImageResource(R.drawable.truyen2);
-        holder.tvstory.setText("CHÚA PHÙ HỘ CHO SỰ HỦY DIỆT CỦA TA");
-        holder.tvchapter.setText("chương 10");
+//        holder.imgstory.setImageResource(R.drawable.truyen2);
+        Glide.with(context).load(story.getCoverImage()).into(holder.imgstory);
+        holder.tvstory.setText(story.getName());
+        holder.tvchapter.setText("Chap "+story.getNumOfChapter());
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                int clickedPosition=holder.getAdapterPosition();
+                Story s=stories.get(clickedPosition);
+                Bundle b=new Bundle();
+                b.putInt("Id",s.getId());
+                b.putString("Name",s.getName());
+                b.putString("Author",s.getAuthor());
+                b.putString("Summary",s.getSummary());
+                b.putString("Image",s.getCoverImage());
+                b.putString("Category",s.getCategory());
+                Intent intent=new Intent(context, ChapActivity.class);
+                intent.putExtras(b);
+                context.startActivity(intent);
+            }
+        });
     }
 
     @Override
