@@ -8,6 +8,7 @@ public class Story {
     private String summary;
     private String category;
     private int numOfChapter;
+    private boolean Follow;
 
     public Story() {
     }
@@ -20,6 +21,7 @@ public class Story {
         this.summary = summary;
         this.category = category;
         this.numOfChapter = numOfChapter;
+
     }
 
     public int getId() {
@@ -76,5 +78,25 @@ public class Story {
 
     public void setNumOfChapter(int numOfChapter) {
         this.numOfChapter = numOfChapter;
+    }
+
+    public boolean isFollow() {
+        return Follow;
+    }
+
+    public void setFollow(boolean follow) {
+        Follow = follow;
+    }
+
+    public void follow() {
+        this.Follow = true;
+    }
+
+    public void unfollow() {
+        this.Follow = false;
+    }
+
+    public boolean isFollowed() {
+        return this.Follow;
     }
 }
