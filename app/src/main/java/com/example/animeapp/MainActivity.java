@@ -60,7 +60,8 @@ public class MainActivity extends AppCompatActivity {
                 }else if(item.getItemId()==R.id.mnu_search){
                     loadFragment(new SearchFragment());
                 }else{
-
+                    Intent intent=new Intent(MainActivity.this, CategoryActivity.class);
+                    startActivity(intent);
                 }
                 return true;
             }

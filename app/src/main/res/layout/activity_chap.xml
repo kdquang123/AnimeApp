@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".ChapActivity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="230dp">
+
+            <ImageView
+                android:id="@+id/CoverImage"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:src="@drawable/a"
+                android:scaleType="centerCrop" />
+
+            <TextView
+                android:id="@+id/txtChapterName"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="#B4000000"
+                android:gravity="center"
+                android:padding="10dp"
+                android:text="ten truyen"
+                android:textColor="#FFF"
+                android:textSize="35sp" />
+
+            <TextView
+                android:id="@+id/txtAuthor"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="bottom|left"
+                android:padding="10dp"
+                android:text="tac gia"
+                android:textColor="#FFF"
+                android:textSize="25dp" />
+
+            <Button
+                android:id="@+id/btnTheoDoi"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Theo dõi"
+                android:layout_alignParentRight="true"
+                android:layout_marginTop="10dp"
+                android:layout_marginRight="10dp"
+                android:textColor="#fff"
+                android:background="@drawable/botron_button" />
+
+        </RelativeLayout>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#B4000000"
+            android:text="Thể loại"
+            android:textSize="20dp"
+            android:textColor="#FFF"
+            android:padding="5dp" />
+
+        <TextView
+            android:id="@+id/txtSummary"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="nội dung truyện"
+            android:padding="5dp" />
+
+        <TextView
+            android:id="@+id/summaryTextView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Summary" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recyclerViewChap"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:nestedScrollingEnabled="false" />
+
+    </LinearLayout>
+
+</androidx.core.widget.NestedScrollView>
