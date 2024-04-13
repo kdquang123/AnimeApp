@@ -10,6 +10,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.animeapp.Api.OnItemClickListener;
 import com.example.animeapp.Model.Category;
 import com.example.animeapp.R;
 
@@ -17,9 +18,11 @@ import java.util.List;
 
 public class RecyclerViewCategoryAdapter extends RecyclerView.Adapter<RecyclerViewCategoryAdapter.CategoryHolder> {
     private Context context;
+    public OnItemClickListener mListener;
     View selectedView;
-    public RecyclerViewCategoryAdapter(Context context) {
+    public RecyclerViewCategoryAdapter(Context context, OnItemClickListener listener) {
         this.context = context;
+        this.mListener=listener;
     }
     public void setData(List<Category> list){
         this.categories = list;
@@ -55,6 +58,14 @@ public class RecyclerViewCategoryAdapter extends RecyclerView.Adapter<RecyclerVi
 //        Uri uri = Uri.parse(story.getCoverImage());
 //        holder.imgstory.setImageURI(uri);
         holder.tvcategory.setText(category.getName());
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (mListener != null) {
+                    mListener.onItemClick(holder.getAdapterPosition());
+                }
+            }
+        });
     }
 
     @Override

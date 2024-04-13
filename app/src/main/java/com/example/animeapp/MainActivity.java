@@ -41,6 +41,13 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         bottomNavigationView=findViewById(R.id.bottomNavigationView);
+        Bundle b=getIntent().getExtras();
+        HomeFragment homefragment = new HomeFragment();
+        if(b!=null){
+            homefragment.setArguments(b);
+// Sau đó, thêm Fragment vào Activity bằng cách sử dụng FragmentManager
+//            getSupportFragmentManager().beginTransaction().replace(R.id.frameLayout, fragment).commit();
+        }
 //        btnSignOut=findViewById(R.id.btnSignOut);
 //        btnSignOut.setOnClickListener(new View.OnClickListener() {
 //            @Override
@@ -66,8 +73,9 @@ public class MainActivity extends AppCompatActivity {
                 return true;
             }
         });
-        loadFragment(new HomeFragment());
+        loadFragment(homefragment);
     }
+
 
     private void loadFragment(Fragment fragment){
         FragmentManager fragmentManager=getSupportFragmentManager();

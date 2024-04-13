@@ -3,60 +3,60 @@ package com.example.animeapp.Model;
 import java.util.Date;
 
 public class Comment {
-    private int Id;
-    private String Content;
-    private Date CreateAt;
-    private String UserName;
-    private int IdStory;
+    private int id;
+    private String content;
+    private String createAt;
+    private String userName;
+    private int idStory;
 
     public Comment() {
     }
 
-    public Comment(int id, String content, Date createAt, String userName, int idStory) {
-        Id = id;
-        Content = content;
-        CreateAt = createAt;
-        UserName = userName;
-        IdStory = idStory;
+    public Comment(int id, String content, String createAt, String userName, int idStory) {
+        this.id = id;
+        this.content = content;
+        this.createAt = createAt;
+        this.userName = userName;
+        this.idStory = idStory;
     }
 
     public int getId() {
-        return Id;
+        return id;
     }
 
     public void setId(int id) {
-        Id = id;
+        id = id;
     }
 
     public String getContent() {
-        return Content;
+        return content;
     }
 
     public void setContent(String content) {
-        Content = content;
+        content = content;
     }
 
-    public Date getCreateAt() {
-        return CreateAt;
+    public String getCreateAt() {
+        return createAt;
     }
 
-    public void setCreateAt(Date createAt) {
-        CreateAt = createAt;
+    public void setCreateAt(String createAt) {
+        createAt = createAt;
     }
 
     public String getUserName() {
-        return UserName;
+        return userName;
     }
 
     public void setUserName(String userName) {
-        UserName = userName;
+        userName = userName;
     }
 
     public int getIdStory() {
-        return IdStory;
+        return idStory;
     }
 
     public void setIdStory(int idStory) {
-        IdStory = idStory;
+        idStory = idStory;
     }
 }

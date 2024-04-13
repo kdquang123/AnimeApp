@@ -8,4 +8,5 @@
     <color name="info">#5bc0de</color>
     <color name="success">#5cb85c</color>
     <color name="back_nav">#CE0275D8</color>
+    <color name="colorBlack">#000000</color>
 </resources>

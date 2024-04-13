@@ -39,6 +39,9 @@ public class ChapActivity extends AppCompatActivity {
     TextView txtCategory;
     Retrofit retrofit;
     ChapterService chapterService;
+    ImageView btnComment;
+
+    int idStory;
     SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
 
     @Override
@@ -53,6 +56,7 @@ public class ChapActivity extends AppCompatActivity {
         txtSummary = findViewById(R.id.txtSummary);
         recyclerViewChap = findViewById(R.id.recyclerViewChap);
         txtCategory=findViewById(R.id.txtCategory);
+        btnComment=findViewById(R.id.btnComment);
         //recyclerViewChap.setNestedScrollingEnabled(false);
 
         retrofit = new Retrofit.Builder()
@@ -62,22 +66,34 @@ public class ChapActivity extends AppCompatActivity {
         chapterService = retrofit.create(ChapterService.class);
 
         if (b != null) {
-            int id=b.getInt("Id");
+            int id = b.getInt("Id");
+            idStory=id;
             String name = b.getString("Name");
             String author = b.getString("Author");
             String summary = b.getString("Summary");
             String img = b.getString("Image");
-            String category=b.getString("Category");
+            String category = b.getString("Category");
             txtChapterName.setText(name);
             txtAuthor.setText(author);
             //Cái thể loại chưa sửa id nên xin phép ko động tới
-            txtCategory.setText("Thể loại :"+category);
+            txtCategory.setText("Thể loại :" + category);
             txtSummary.setText(summary);
             Glide.with(this).load(img).into(CoverImage);
             initData(id);
             recyclerViewChap.setAdapter(chapterAdapter);
         }
         setUp();
+
+        btnComment.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Bundle b=new Bundle();
+                b.putInt("IdStory",idStory);
+                Intent intent=new Intent(ChapActivity.this,CommentActivity.class);
+                intent.putExtras(b);
+                startActivity(intent);
+            }
+        });
 //        setClick();
     }
 

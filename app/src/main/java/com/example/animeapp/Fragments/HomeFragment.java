@@ -1,10 +1,13 @@
 package com.example.animeapp.Fragments;
 
+import android.content.Intent;
+import android.media.Image;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
@@ -15,8 +18,11 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.animeapp.Adapter.RecyclerViewHomeAdapter;
 import com.example.animeapp.Adapter.RecyclerViewHomeAdapter2;
 import com.example.animeapp.Api.StoryService;
+import com.example.animeapp.LoginActivity;
+import com.example.animeapp.MainActivity;
 import com.example.animeapp.Model.Story;
 import com.example.animeapp.R;
+import com.google.firebase.auth.FirebaseAuth;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -47,6 +53,10 @@ public class HomeFragment extends Fragment {
     private RecyclerView recyclerView2;
     private RecyclerViewHomeAdapter itemadapter;
     private RecyclerViewHomeAdapter2 item2adapter;
+    private ImageView btnLogout;
+    int idCategory=-1;
+
+    private FirebaseAuth mAuth;
     Retrofit retrofit;
     StoryService storyService;
     // TODO: Rename parameter arguments, choose names that match
@@ -86,7 +96,10 @@ public class HomeFragment extends Fragment {
         if (getArguments() != null) {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
+            idCategory=getArguments().getInt("IdCategory");
         }
+
+        mAuth=FirebaseAuth.getInstance();
 
     }
 
@@ -101,6 +114,17 @@ public class HomeFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_home, container, false);
         recyclerView= view.findViewById(R.id.rcv_home);
         recyclerView2= view.findViewById(R.id.rcv_home2);
+        btnLogout=view.findViewById(R.id.iv_Logout);
+
+        btnLogout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mAuth.signOut();
+                Intent intent=new Intent(requireContext(), LoginActivity.class);
+                startActivity(intent);
+            }
+        });
+
 //        stories = getListStory();
 
         itemadapter = new RecyclerViewHomeAdapter(getContext());
@@ -134,8 +158,14 @@ public class HomeFragment extends Fragment {
         });
         scrollToNextItems();
 
+
         //call API
-        getListStory();
+        if(idCategory!=-1){
+            getListStoryByCategory();
+        }else{
+            getListStory();
+        }
+
 //        ImageView imglogout=view.findViewById(R.id.iv_Logout);
 //        imglogout.setOnClickListener(new View.OnClickListener() {
 //            @Override
@@ -221,5 +251,28 @@ public class HomeFragment extends Fragment {
             }
         });
 //        return list;
+    }
+
+    private void getListStoryByCategory(){
+        Call<ArrayList<Story>> callStory = storyService.getStoryByIdCategory(idCategory);
+        callStory.enqueue(new Callback<ArrayList<Story>>() {
+            @Override
+            public void onResponse(Call<ArrayList<Story>> call, Response<ArrayList<Story>> response) {
+                if (response.isSuccessful()) {
+                    stories= response.body();
+                    item2adapter.setData(stories);
+                    recyclerView2.setAdapter(item2adapter);
+                } else {
+                    // Xử lý lỗi
+//                    searchEditText.setText("not Ok");
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ArrayList<Story>> call, Throwable t) {
+                // Xử lý lỗi kết nối
+//                searchEditText.setText("super not Ok");
+            }
+        });
     }
 }

@@ -1,17 +1,51 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Fragments.SearchFragment"
-    android:orientation="horizontal">
+    android:orientation="vertical"
+    tools:context=".Fragments.SearchFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="FragmentSearch"
-        android:textSize="30dp"
-        android:gravity="center"/>
+        android:layout_height="75dp"
+        android:background="@drawable/round_back_dark_blue_15"
+        android:orientation="horizontal"
+        android:padding="8dp">
+
+        <ImageView
+            android:layout_width="37dp"
+            android:layout_height="52dp"
+            android:src="@drawable/search" />
+
+        <EditText
+            android:id="@+id/search_bar"
+            android:layout_width="0dp"
+            android:layout_height="52dp"
+            android:layout_weight="1"
+            android:background="@null"
+            android:hint="Tìm kiếm"
+            android:inputType="text"
+            android:padding="8dp" />
+
+    </LinearLayout>
+
+    <!-- Danh sách truyện -->
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        >
+
+        <LinearLayout
+            android:id="@+id/story_list_container"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+            <!-- Thêm các View cho danh sách truyện ở đây -->
+        </LinearLayout>
+
+    </ScrollView>
 
 </LinearLayout>
