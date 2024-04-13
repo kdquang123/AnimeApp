@@ -6,6 +6,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -15,6 +16,7 @@ import com.bumptech.glide.Glide;
 import com.example.animeapp.Adapter.ChapterAdapter;
 import com.example.animeapp.Api.ChapterService;
 import com.example.animeapp.Api.StoryService;
+import com.example.animeapp.Database.StoryDatabaseHelper;
 import com.example.animeapp.Model.Chapter;
 import com.example.animeapp.Model.Story;
 
@@ -40,6 +42,8 @@ public class ChapActivity extends AppCompatActivity {
     Retrofit retrofit;
     ChapterService chapterService;
     ImageView btnComment;
+    private StoryDatabaseHelper databaseHelper;
+    private Story story;
 
     int idStory;
     SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
@@ -48,6 +52,9 @@ public class ChapActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_chap);
+
+        databaseHelper = new StoryDatabaseHelper(this);
+
         Bundle b = getIntent().getExtras();
         CoverImage = findViewById(R.id.CoverImage);
         btnTheoDoi = findViewById(R.id.btnTheoDoi);
@@ -73,6 +80,7 @@ public class ChapActivity extends AppCompatActivity {
             String summary = b.getString("Summary");
             String img = b.getString("Image");
             String category = b.getString("Category");
+            story=new Story(id,name,img,author,summary,category,0);
             txtChapterName.setText(name);
             txtAuthor.setText(author);
             //Cái thể loại chưa sửa id nên xin phép ko động tới
@@ -92,6 +100,19 @@ public class ChapActivity extends AppCompatActivity {
                 Intent intent=new Intent(ChapActivity.this,CommentActivity.class);
                 intent.putExtras(b);
                 startActivity(intent);
+            }
+        });
+
+        btnTheoDoi.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(ChapActivity.this, "Đã theo dõi truyện " + story.getName(), Toast.LENGTH_SHORT).show();
+                if(!databaseHelper.isStoryFollowed(story.getId())){
+                    databaseHelper.addFollowedStory(story);
+                    Toast.makeText(ChapActivity.this, "Đã theo dõi truyện " + story.getName(), Toast.LENGTH_SHORT).show();
+                }else{
+                    Toast.makeText(ChapActivity.this, "Đã theo dõi truyện " + story.getName(), Toast.LENGTH_SHORT).show();
+                }
             }
         });
 //        setClick();
@@ -140,7 +161,11 @@ public class ChapActivity extends AppCompatActivity {
         chapterAdapter.setOnItemClickListener(new ChapterAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(View view, int position) {
-                startActivity(new Intent(ChapActivity.this, ReadActivity.class));
+                Bundle b=new Bundle();
+                b.putInt("IdChap",arrChap.get(position).getId());
+                Intent intent =new Intent(ChapActivity.this, ReadActivity.class);
+                intent.putExtras(b);
+                startActivity(intent);
             }
         });
     }

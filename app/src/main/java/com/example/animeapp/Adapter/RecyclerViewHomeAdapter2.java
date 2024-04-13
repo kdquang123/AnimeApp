@@ -64,6 +64,7 @@ public class RecyclerViewHomeAdapter2 extends RecyclerView.Adapter<RecyclerViewH
                 b.putString("Summary",s.getSummary());
                 b.putString("Image",s.getCoverImage());
                 b.putString("Category",s.getCategory());
+                b.putInt("NumOfChapter",s.getNumOfChapter());
                 Intent intent=new Intent(context, ChapActivity.class);
                 intent.putExtras(b);
                 context.startActivity(intent);

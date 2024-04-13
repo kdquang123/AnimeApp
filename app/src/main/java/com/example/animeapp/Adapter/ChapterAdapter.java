@@ -2,6 +2,7 @@ package com.example.animeapp.Adapter;
 
 import android.content.Context;
 import android.content.Intent;
+import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,6 +11,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.animeapp.ChapActivity;
 import com.example.animeapp.Model.Chapter;
 import com.example.animeapp.R;
 import com.example.animeapp.ReadActivity;
@@ -54,7 +56,10 @@ public class ChapterAdapter extends RecyclerView.Adapter<ChapterAdapter.ViewHold
 //                if (onItemClickListener != null) {
 //                    onItemClickListener.onItemClick(view, holder.getAdapterPosition());
 //                }
-                Intent intent=new Intent(context, ReadActivity.class);
+                Bundle b=new Bundle();
+                b.putInt("IdChap",chapterList.get(holder.getAdapterPosition()).getId());
+                Intent intent =new Intent(context, ReadActivity.class);
+                intent.putExtras(b);
                 context.startActivity(intent);
             }
         });

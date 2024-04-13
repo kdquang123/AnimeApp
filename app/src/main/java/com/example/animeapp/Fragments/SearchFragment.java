@@ -209,6 +209,7 @@ public class SearchFragment extends Fragment {
                     b.putString("Summary",story.getSummary());
                     b.putString("Image",story.getCoverImage());
                     b.putString("Category",story.getCategory());
+                    b.putInt("NumOfChapter",story.getNumOfChapter());
                     Intent intent=new Intent(requireContext(), ChapActivity.class);
                     intent.putExtras(b);
                     requireContext().startActivity(intent);

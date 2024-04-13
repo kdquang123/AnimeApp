@@ -35,6 +35,9 @@ public class CategoryActivity extends AppCompatActivity implements OnItemClickLi
     private RecyclerViewCategoryAdapter recyclerViewCategoryAdapter;
     Retrofit retrofit;
     CategoryService categoryService;
+
+
+    int selectedItem=1;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -52,6 +55,18 @@ public class CategoryActivity extends AppCompatActivity implements OnItemClickLi
             @Override
             public void onClick(View v) {
                 Intent intent=new Intent(CategoryActivity.this,MainActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        btnApply.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Bundle b=new Bundle();
+                int idCategory=categories.get(selectedItem).getId();
+                b.putInt("IdCategory",idCategory);
+                Intent intent=new Intent(CategoryActivity.this,MainActivity.class);
+                intent.putExtras(b);
                 startActivity(intent);
             }
         });
@@ -101,12 +116,8 @@ public class CategoryActivity extends AppCompatActivity implements OnItemClickLi
 
     @Override
     public void onItemClick(int position) {
-       Bundle b=new Bundle();
-       int idCategory=categories.get(position).getId();
-       b.putInt("IdCategory",idCategory);
-       Intent intent=new Intent(CategoryActivity.this,MainActivity.class);
-       intent.putExtras(b);
-       startActivity(intent);
+        selectedItem=position;
+
     }
 
 }

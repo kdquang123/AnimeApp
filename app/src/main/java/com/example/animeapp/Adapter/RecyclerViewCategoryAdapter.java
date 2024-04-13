@@ -20,6 +20,7 @@ public class RecyclerViewCategoryAdapter extends RecyclerView.Adapter<RecyclerVi
     private Context context;
     public OnItemClickListener mListener;
     View selectedView;
+    private int previousClickedPosition = RecyclerView.NO_POSITION;
     public RecyclerViewCategoryAdapter(Context context, OnItemClickListener listener) {
         this.context = context;
         this.mListener=listener;
@@ -35,17 +36,17 @@ public class RecyclerViewCategoryAdapter extends RecyclerView.Adapter<RecyclerVi
     public CategoryHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view= LayoutInflater.from(parent.getContext()).inflate(R.layout.item_category,parent,false);
         TextView tvitem = view.findViewById(R.id.tv_category);
-        view.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if(selectedView!=null){
-                    TextView tvitem1 = selectedView.findViewById(R.id.tv_category);
-                    tvitem1.setTextColor(Color.BLACK);
-                }
-                tvitem.setTextColor(Color.RED);
-                selectedView=view;
-            }
-        });
+//        view.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                if(selectedView!=null){
+//                    TextView tvitem1 = selectedView.findViewById(R.id.tv_category);
+//                    tvitem1.setTextColor(Color.BLACK);
+//                }
+//                tvitem.setTextColor(Color.RED);
+//                selectedView=view;
+//            }
+//        });
         return new CategoryHolder(view);
     }
 
@@ -61,6 +62,13 @@ public class RecyclerViewCategoryAdapter extends RecyclerView.Adapter<RecyclerVi
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+                if(selectedView!=null){
+                    TextView tvitem1 = selectedView.findViewById(R.id.tv_category);
+                    tvitem1.setTextColor(Color.BLACK);
+                }
+                holder.tvcategory.setTextColor(Color.RED);
+                selectedView=v;
                 if (mListener != null) {
                     mListener.onItemClick(holder.getAdapterPosition());
                 }

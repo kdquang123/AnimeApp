@@ -1,17 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/bookcase_fragment"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Fragments.BookcaseFragment"
-    android:orientation="horizontal">
-
-    <!-- TODO: Update blank fragment layout -->
+    tools:context=".Fragments.BookcaseFragment">
     <TextView
+        android:id="@+id/textView3"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="FragmentBookcase"
-        android:textSize="30dp"
-        android:gravity="center"/>
+        android:layout_height="50dp"
+        android:text="Đang theo dõi"
+        android:gravity="center"
+        android:textSize="22dp"
+        android:textStyle="bold"
+        android:textColor="@color/white"
+        android:layout_margin="5dp"
+        android:background="@drawable/rounded_background"
+        />
 
-</LinearLayout>
+    <androidx.recyclerview.widget.RecyclerView
+        android:layout_marginTop="55dp"
+        android:id="@+id/recyclerView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+</FrameLayout>

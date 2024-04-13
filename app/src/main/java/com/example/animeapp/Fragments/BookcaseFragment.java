@@ -2,13 +2,24 @@ package com.example.animeapp.Fragments;
 
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
+import android.view.ContextMenu;
 import android.view.LayoutInflater;
+import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.example.animeapp.Adapter.FollowedStoryAdapter;
+import com.example.animeapp.Database.StoryDatabaseHelper;
+import com.example.animeapp.Model.Story;
 import com.example.animeapp.R;
+
+import java.util.List;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -16,6 +27,11 @@ import com.example.animeapp.R;
  * create an instance of this fragment.
  */
 public class BookcaseFragment extends Fragment {
+
+    private RecyclerView recyclerView;
+    private FollowedStoryAdapter adapter;
+    private List<Story> followedStories;
+    private StoryDatabaseHelper databaseHelper;
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -58,9 +74,32 @@ public class BookcaseFragment extends Fragment {
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_bookcase, container, false);
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        View view = inflater.inflate(R.layout.fragment_bookcase, container, false);
+
+        recyclerView = view.findViewById(R.id.recyclerView);
+        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+
+        registerForContextMenu(recyclerView);
+        databaseHelper = new StoryDatabaseHelper(getContext());
+        followedStories = databaseHelper.getAllFollowedStories();
+
+        adapter = new FollowedStoryAdapter(requireContext(),followedStories);
+        recyclerView.setAdapter(adapter);
+
+        return view;
+    }
+
+    public void updateFollowedStories() {
+        followedStories = databaseHelper.getAllFollowedStories();
+        adapter.setStories(followedStories);
+        adapter.notifyDataSetChanged();
+    }
+
+    @Override
+    public void onCreateContextMenu(@NonNull ContextMenu menu, @NonNull View v, @Nullable ContextMenu.ContextMenuInfo menuInfo) {
+        super.onCreateContextMenu(menu, v, menuInfo);
+        MenuInflater inflater = getActivity().getMenuInflater();
+        inflater.inflate(R.menu.followed_context_menu, menu);
     }
 }
