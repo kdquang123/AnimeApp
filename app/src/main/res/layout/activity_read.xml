@@ -7,48 +7,32 @@
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rcvpage"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" >
+        android:layout_height="wrap_content"
+        android:layout_marginTop="80dp">
 
     </androidx.recyclerview.widget.RecyclerView>
 
-    <RelativeLayout
+    <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_marginBottom="5dp">
-        <ImageView
-            android:id="@+id/imgPage"
-            android:onClick="left"
-            android:background="@drawable/bg_left"
+        android:layout_alignParentTop="true"
+        android:orientation="horizontal"
+        android:background="#7E000000">
+        <Button
+            android:id="@+id/btnLeft"
             android:layout_width="60dp"
             android:layout_height="60dp"
-            android:padding="10dp"
-            android:tint="#fff"
-            android:layout_centerVertical="true"
-            android:src="@drawable/left"
-            tools:ignore="UseAppTint" />
+            android:drawableLeft="@drawable/left"/>
 
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="60dp"
-            android:padding="10dp"
-            android:background="#7E000000"
-            android:text="Chuyển chapter"
-            android:textSize="20dp"
-            android:textColor="#fff"
-            android:gravity="center_vertical|center" />
+        <Spinner
+            android:id="@+id/spinnerChapters"
+            android:layout_width="290dp"
+            android:layout_height="60dp" />
 
-        <ImageView
-            android:onClick="right"
-            android:background="@drawable/bg_left"
+        <Button
+            android:id="@+id/btnRight"
             android:layout_width="60dp"
             android:layout_height="60dp"
-            android:padding="10dp"
-            android:tint="#fff"
-            android:rotation="180"
-            android:layout_centerVertical="true"
-            android:src="@drawable/left"
-            android:layout_alignParentRight="true"
-            tools:ignore="UseAppTint" />
-    </RelativeLayout>
+            android:drawableLeft="@drawable/right"/>
+    </LinearLayout>
 </RelativeLayout>

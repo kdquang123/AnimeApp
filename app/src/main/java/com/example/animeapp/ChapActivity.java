@@ -163,6 +163,7 @@ public class ChapActivity extends AppCompatActivity {
             public void onItemClick(View view, int position) {
                 Bundle b=new Bundle();
                 b.putInt("IdChap",arrChap.get(position).getId());
+                b.putInt("IdStory", idStory);
                 Intent intent =new Intent(ChapActivity.this, ReadActivity.class);
                 intent.putExtras(b);
                 startActivity(intent);
