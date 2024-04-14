@@ -4,6 +4,8 @@
     android:layout_height="60dp"
     android:orientation="vertical"
     android:gravity="center_vertical"
+    android:background="@drawable/post"
+    android:layout_margin="5dp"
     android:padding="5dp">
 
     <TextView
