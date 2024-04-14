@@ -25,6 +25,9 @@ public class MainActivity extends AppCompatActivity {
     FirebaseAuth mAuth;
     BottomNavigationView bottomNavigationView;
 
+    private BookcaseFragment bookcaseFragment;
+
+
     @Override
     protected void onStart() {
         super.onStart();

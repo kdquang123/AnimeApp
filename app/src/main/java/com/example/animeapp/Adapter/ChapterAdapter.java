@@ -24,6 +24,7 @@ public class ChapterAdapter extends RecyclerView.Adapter<ChapterAdapter.ViewHold
     private ArrayList<Chapter> chapterList;
     private OnItemClickListener onItemClickListener;
 
+
     public ChapterAdapter(Context context, List<Chapter> chapterList) {
         this.context = context;
         this.chapterList = new ArrayList<>(chapterList);

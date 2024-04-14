@@ -5,6 +5,7 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -26,7 +27,7 @@ import java.util.List;
  * Use the {@link BookcaseFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class BookcaseFragment extends Fragment {
+public class BookcaseFragment extends Fragment  {
 
     private RecyclerView recyclerView;
     private FollowedStoryAdapter adapter;
@@ -70,6 +71,7 @@ public class BookcaseFragment extends Fragment {
         if (getArguments() != null) {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
+
         }
     }
 
@@ -93,7 +95,6 @@ public class BookcaseFragment extends Fragment {
     public void updateFollowedStories() {
         followedStories = databaseHelper.getAllFollowedStories();
         adapter.setStories(followedStories);
-        adapter.notifyDataSetChanged();
     }
 
     @Override
@@ -102,4 +103,5 @@ public class BookcaseFragment extends Fragment {
         MenuInflater inflater = getActivity().getMenuInflater();
         inflater.inflate(R.menu.followed_context_menu, menu);
     }
+
 }

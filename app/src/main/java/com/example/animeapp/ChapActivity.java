@@ -17,6 +17,7 @@ import com.example.animeapp.Adapter.ChapterAdapter;
 import com.example.animeapp.Api.ChapterService;
 import com.example.animeapp.Api.StoryService;
 import com.example.animeapp.Database.StoryDatabaseHelper;
+import com.example.animeapp.Fragments.BookcaseFragment;
 import com.example.animeapp.Model.Chapter;
 import com.example.animeapp.Model.Story;
 
@@ -44,8 +45,10 @@ public class ChapActivity extends AppCompatActivity {
     ImageView btnComment;
     private StoryDatabaseHelper databaseHelper;
     private Story story;
-
+    private boolean isFollowed;
     int idStory;
+    private BookcaseFragment bookcaseFragment;
+
     SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
 
     @Override
@@ -89,8 +92,17 @@ public class ChapActivity extends AppCompatActivity {
             Glide.with(this).load(img).into(CoverImage);
             initData(id);
             recyclerViewChap.setAdapter(chapterAdapter);
+
+            isFollowed = databaseHelper.isStoryFollowed(story.getId());
         }
         setUp();
+
+        // Cập nhật nội dung và trạng thái của nút btnTheoDoi
+        if (isFollowed) {
+            btnTheoDoi.setText("Huỷ Theo Dõi");
+        } else {
+            btnTheoDoi.setText("Theo Dõi");
+        }
 
         btnComment.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -106,11 +118,15 @@ public class ChapActivity extends AppCompatActivity {
         btnTheoDoi.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(ChapActivity.this, "Đã theo dõi truyện " + story.getName(), Toast.LENGTH_SHORT).show();
-                if(!databaseHelper.isStoryFollowed(story.getId())){
+                if (isFollowed) {
+                    databaseHelper.removeFollowedStory(story.getId());
+                    isFollowed = false;
+                    btnTheoDoi.setText("Theo Dõi");
+                    Toast.makeText(ChapActivity.this, "Đã huỷ theo dõi truyện " + story.getName(), Toast.LENGTH_SHORT).show();
+                } else {
                     databaseHelper.addFollowedStory(story);
-                    Toast.makeText(ChapActivity.this, "Đã theo dõi truyện " + story.getName(), Toast.LENGTH_SHORT).show();
-                }else{
+                    isFollowed = true;
+                    btnTheoDoi.setText("Huỷ Theo Dõi");
                     Toast.makeText(ChapActivity.this, "Đã theo dõi truyện " + story.getName(), Toast.LENGTH_SHORT).show();
                 }
             }
