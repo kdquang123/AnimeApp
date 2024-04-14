@@ -73,10 +73,11 @@ public class LoginActivity extends AppCompatActivity {
             public boolean onLongClick(View v) {
                 btnViewPass.setImageResource(R.drawable.show_pasword_icon);
                 edtPass.setInputType(InputType.TYPE_CLASS_TEXT);
-                return false;
+                return true;
             }
         });
 
+        btnViewPass.setOnClickListener(null);
         btnViewPass.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
@@ -118,6 +119,7 @@ public class LoginActivity extends AppCompatActivity {
                                             startActivity(intent);
                                         } else {
                                             // If sign in fails, display a message to the user.
+                                            prgBarLg.setVisibility(View.GONE);
                                             txtInformLogin.setText("Email hoặc mật khẩu chưa chính xác!");
                                         }
                                     }

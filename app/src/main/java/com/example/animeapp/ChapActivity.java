@@ -44,7 +44,7 @@ public class ChapActivity extends AppCompatActivity {
     ImageView btnComment;
     private StoryDatabaseHelper databaseHelper;
     private Story story;
-
+    private boolean isFollowed;
     int idStory;
     SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
 
@@ -89,6 +89,13 @@ public class ChapActivity extends AppCompatActivity {
             Glide.with(this).load(img).into(CoverImage);
             initData(id);
             recyclerViewChap.setAdapter(chapterAdapter);
+            isFollowed = databaseHelper.isStoryFollowed(story.getId());
+        }
+        // Cập nhật nội dung và trạng thái của nút btnTheoDoi
+        if (isFollowed) {
+            btnTheoDoi.setText("Huỷ Theo Dõi");
+        } else {
+            btnTheoDoi.setText("Theo Dõi");
         }
         setUp();
 
@@ -106,15 +113,26 @@ public class ChapActivity extends AppCompatActivity {
         btnTheoDoi.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(ChapActivity.this, "Đã theo dõi truyện " + story.getName(), Toast.LENGTH_SHORT).show();
-                if(!databaseHelper.isStoryFollowed(story.getId())){
+                if (isFollowed) {
+                    databaseHelper.removeFollowedStory(story.getId());
+                    isFollowed = false;
+                    btnTheoDoi.setText("Theo Dõi");
+                    Toast.makeText(ChapActivity.this, "Đã huỷ theo dõi truyện " + story.getName(), Toast.LENGTH_SHORT).show();
+                } else {
                     databaseHelper.addFollowedStory(story);
-                    Toast.makeText(ChapActivity.this, "Đã theo dõi truyện " + story.getName(), Toast.LENGTH_SHORT).show();
-                }else{
+                    isFollowed = true;
+                    btnTheoDoi.setText("Huỷ Theo Dõi");
                     Toast.makeText(ChapActivity.this, "Đã theo dõi truyện " + story.getName(), Toast.LENGTH_SHORT).show();
                 }
             }
         });
+
+        // Cập nhật nội dung và trạng thái của nút btnTheoDoi
+        if (isFollowed) {
+            btnTheoDoi.setText("Huỷ Theo Dõi");
+        } else {
+            btnTheoDoi.setText("Theo Dõi");
+        }
 //        setClick();
     }
 
@@ -135,7 +153,7 @@ public class ChapActivity extends AppCompatActivity {
             public void onResponse(Call<ArrayList<Chapter>> call, Response<ArrayList<Chapter>> response) {
                 if (response.isSuccessful()) {
                     arrChap = response.body();
-                    chapterAdapter = new ChapterAdapter(ChapActivity.this, arrChap);
+                    chapterAdapter = new ChapterAdapter(ChapActivity.this, arrChap,idStory);
                     recyclerViewChap.setAdapter(chapterAdapter);
 //                    txtCategory.setText("Ok");
                 }else{
@@ -145,7 +163,7 @@ public class ChapActivity extends AppCompatActivity {
 
             @Override
             public void onFailure(Call<ArrayList<Chapter>> call, Throwable t) {
-                chapterAdapter=new ChapterAdapter(ChapActivity.this,arrChap);
+//                chapterAdapter=new ChapterAdapter(ChapActivity.this,arrChap,idStory);
 
                 txtCategory.setText("Super not ok");
             }

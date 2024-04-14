@@ -42,7 +42,16 @@ public class RecyclerViewHomeAdapter extends RecyclerView.Adapter<RecyclerViewHo
         }
 //        Uri uri = Uri.parse(story.getCoverImage());
 //        holder.imgstory.setImageURI(uri);
-        holder.imgstory.setImageResource(R.drawable.truyen1);
+        if(position==0){
+            holder.imgstory.setImageResource(R.drawable.truyen1);
+        }
+        if(position==1){
+            holder.imgstory.setImageResource(R.drawable.truyen2);
+        }
+        if(position==2){
+            holder.imgstory.setImageResource(R.drawable.truyen3);
+        }
+
     }
 
     @Override

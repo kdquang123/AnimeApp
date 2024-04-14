@@ -1,5 +1,7 @@
 package com.example.animeapp.Model;
 
+import androidx.annotation.NonNull;
+
 import java.util.Date;
 
 public class Chapter {
@@ -48,5 +50,11 @@ public class Chapter {
 
     public void setIdStory(int idStory) {
         this.idStory = idStory;
+    }
+
+    @NonNull
+    @Override
+    public String toString() {
+        return this.chapterName;
     }
 }

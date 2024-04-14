@@ -213,7 +213,6 @@ public class HomeFragment extends Fragment {
         list.add(new Story(1,"name","CoverImage","Author","Summary","ntr",1));
         list.add(new Story(2,"name","CoverImage","Author","Summary","ntr",2));
         list.add(new Story(3,"name","CoverImage","Author","Summary","ntr",3));
-
         return list;
     }
     private void getListStory(){

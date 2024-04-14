@@ -131,6 +131,7 @@ public class RegisterActivity extends AppCompatActivity {
                                             txtInformRg.setText("Đăng ký thành công!");
                                         } else {
                                             // If sign in fails, display a message to the user.
+                                            prbarRg.setVisibility(View.GONE);
                                             txtInformRg.setText("Đăng ký thất bại!");
                                         }
                                     }

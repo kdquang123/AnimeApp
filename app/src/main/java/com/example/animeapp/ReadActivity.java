@@ -42,13 +42,21 @@ public class ReadActivity extends AppCompatActivity {
     ArrayList<Page> arrayList;
     ArrayList<Chapter> chapters = new ArrayList<>();
     PageAdapter pageAdapter;
-    long firstChapterId;
-    long lastChapterId;
+    int firstChapterId;
+    int lastChapterId;
     int idChap, idStory;
+    boolean isFirstSelection = true;
+
+    ArrayAdapter<Chapter> spinnerAdapter;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_read);
+        btnLeft=findViewById(R.id.btnLeft);
+        btnRight=findViewById(R.id.btnRight);
+        spinnerChapters=findViewById(R.id.spinnerChapters);
+
+
 //        init();
         Bundle b=getIntent().getExtras();
         if (b != null) {
@@ -63,11 +71,8 @@ public class ReadActivity extends AppCompatActivity {
         pageService = retrofit.create(PageService.class);
         chapterService = retrofit.create(ChapterService.class);
 
-        firstChapterId = ((Chapter) spinnerChapters.getItemAtPosition(0)).getId();
 
-// Lấy ID của chapter cuối cùng
-        int lastPosition = spinnerChapters.getCount() - 1;
-        lastChapterId = ((Chapter) spinnerChapters.getItemAtPosition(lastPosition)).getId();
+
 
         recyclerView = (RecyclerView) findViewById(R.id.rcvpage);
         recyclerView.setHasFixedSize(true);
@@ -99,6 +104,8 @@ public class ReadActivity extends AppCompatActivity {
             }
         });
 
+
+
         Call<ArrayList<Chapter>> callChap = chapterService.getChapterByIdStory(idStory);
         callChap.enqueue(new Callback<ArrayList<Chapter>>() {
             @Override
@@ -106,10 +113,64 @@ public class ReadActivity extends AppCompatActivity {
                 if (response.isSuccessful()) {
                     chapters = response.body();
                     // Tiếp tục xử lý dữ liệu nhận được, ví dụ: cập nhật danh sách chapter trong adapter và cập nhật lại Spinner
-                    ArrayAdapter<Chapter> spinnerAdapter = new ArrayAdapter<>(ReadActivity.this, android.R.layout.simple_spinner_item, chapters);
+                    spinnerAdapter = new ArrayAdapter<>(ReadActivity.this, android.R.layout.simple_spinner_item, chapters);
                     spinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
                     spinnerChapters.setAdapter(spinnerAdapter);
 
+                    firstChapterId = ((Chapter) spinnerChapters.getItemAtPosition(0)).getId();
+
+                    // Lấy ID của chapter cuối cùng
+                    int lastPosition = spinnerChapters.getCount() - 1;
+                    lastChapterId = ((Chapter) spinnerChapters.getItemAtPosition(lastPosition)).getId();
+                    spinnerChapters.setSelection(idChap-firstChapterId);
+                    spinnerChapters.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                        @Override
+                        public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                            if(isFirstSelection){
+                                isFirstSelection=false;
+                                return;
+                            }
+                            Bundle b=new Bundle();
+                            b.putInt("IdChap", chapters.get(position).getId());
+                            b.putInt("IdStory", idStory);
+                            Intent intent =new Intent(ReadActivity.this, ReadActivity.class);
+                            intent.putExtras(b);
+                            startActivity(intent);
+                        }
+
+                        @Override
+                        public void onNothingSelected(AdapterView<?> parent) {
+
+                        }
+                    });
+
+                    btnLeft.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            if (idChap != firstChapterId) {
+                                Bundle b=new Bundle();
+                                b.putInt("IdChap", idChap - 1);
+                                b.putInt("IdStory", idStory);
+                                Intent intent =new Intent(ReadActivity.this, ReadActivity.class);
+                                intent.putExtras(b);
+                                startActivity(intent);
+                            }
+                        }
+                    });
+
+                    btnRight.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            if (idChap != lastChapterId) {
+                                Bundle b=new Bundle();
+                                b.putInt("IdChap", idChap + 1);
+                                b.putInt("IdStory", idStory);
+                                Intent intent =new Intent(ReadActivity.this, ReadActivity.class);
+                                intent.putExtras(b);
+                                startActivity(intent);
+                            }
+                        }
+                    });
                 } else {
                     // Xử lý khi gặp lỗi trong phản hồi từ API
                 }
@@ -121,50 +182,7 @@ public class ReadActivity extends AppCompatActivity {
             }
         });
 
-        spinnerChapters.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                Bundle b=new Bundle();
-                b.putInt("IdChap", chapters.get(position).getId());
-                b.putInt("IdStory", idStory);
-                Intent intent =new Intent(ReadActivity.this, ReadActivity.class);
-                intent.putExtras(b);
-                startActivity(intent);
-            }
 
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-
-            }
-        });
-
-        btnLeft.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (idChap != firstChapterId) {
-                    Bundle b=new Bundle();
-                    b.putInt("IdChap", idChap - 1);
-                    b.putInt("IdStory", idStory);
-                    Intent intent =new Intent(ReadActivity.this, ReadActivity.class);
-                    intent.putExtras(b);
-                    startActivity(intent);
-                }
-            }
-        });
-
-        btnRight.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (idChap != lastChapterId) {
-                    Bundle b=new Bundle();
-                    b.putInt("IdChap", idChap + 1);
-                    b.putInt("IdStory", idStory);
-                    Intent intent =new Intent(ReadActivity.this, ReadActivity.class);
-                    intent.putExtras(b);
-                    startActivity(intent);
-                }
-            }
-        });
     }
 
 }

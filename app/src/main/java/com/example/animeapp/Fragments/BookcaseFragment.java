@@ -65,6 +65,14 @@ public class BookcaseFragment extends Fragment {
     }
 
     @Override
+    public void onStart() {
+        super.onStart();
+        followedStories = databaseHelper.getAllFollowedStories();
+        adapter = new FollowedStoryAdapter(requireContext(),followedStories);
+        recyclerView.setAdapter(adapter);
+    }
+
+    @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
@@ -76,16 +84,12 @@ public class BookcaseFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_bookcase, container, false);
-
+        databaseHelper = new StoryDatabaseHelper(getContext());
         recyclerView = view.findViewById(R.id.recyclerView);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
         registerForContextMenu(recyclerView);
-        databaseHelper = new StoryDatabaseHelper(getContext());
-        followedStories = databaseHelper.getAllFollowedStories();
 
-        adapter = new FollowedStoryAdapter(requireContext(),followedStories);
-        recyclerView.setAdapter(adapter);
 
         return view;
     }

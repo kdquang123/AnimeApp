@@ -24,9 +24,11 @@ public class ChapterAdapter extends RecyclerView.Adapter<ChapterAdapter.ViewHold
     private ArrayList<Chapter> chapterList;
     private OnItemClickListener onItemClickListener;
 
-    public ChapterAdapter(Context context, List<Chapter> chapterList) {
+    int idStory;
+    public ChapterAdapter(Context context, List<Chapter> chapterList,int idStory) {
         this.context = context;
         this.chapterList = new ArrayList<>(chapterList);
+        this.idStory=idStory;
     }
 
     public interface OnItemClickListener {
@@ -58,6 +60,7 @@ public class ChapterAdapter extends RecyclerView.Adapter<ChapterAdapter.ViewHold
 //                }
                 Bundle b=new Bundle();
                 b.putInt("IdChap",chapterList.get(holder.getAdapterPosition()).getId());
+                b.putInt("IdStory", idStory);
                 Intent intent =new Intent(context, ReadActivity.class);
                 intent.putExtras(b);
                 context.startActivity(intent);
